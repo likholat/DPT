@@ -169,6 +169,8 @@ def run(input_path, output_path, model_path, model_type="dpt_hybrid", optimize=T
             if model_type == "dpt_hybrid_nyu":
                 prediction *= 1000.0
 
+            torch.onnx.export(model, sample, 'midas.onnx', opset_version=12)
+
         filename = os.path.join(
             output_path, os.path.splitext(os.path.basename(img_name))[0]
         )
@@ -176,6 +178,7 @@ def run(input_path, output_path, model_path, model_type="dpt_hybrid", optimize=T
             filename, prediction, bits=2, absolute_depth=args.absolute_depth
         )
 
+    
     print("finished")
 
 
